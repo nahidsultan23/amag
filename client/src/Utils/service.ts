@@ -1,6 +1,6 @@
 import { constants } from "../Actions/constants";
 
-const convertToTwelveHoursFormat = (hour: number) => {
+export const convertToTwelveHoursFormat = (hour: number) => {
     let convertedHour = hour;
 
     if (convertedHour === 0) {
@@ -12,7 +12,7 @@ const convertToTwelveHoursFormat = (hour: number) => {
     return convertedHour;
 };
 
-const convertToTwoCharacterString = (string: string) => {
+export const convertToTwoCharacterString = (string: string) => {
     let resultString = string;
 
     if (string.length < 2) {
@@ -22,7 +22,7 @@ const convertToTwoCharacterString = (string: string) => {
     return resultString;
 };
 
-const getAmPm = (hour: number) => {
+export const getAmPm = (hour: number) => {
     let result = "AM";
     if (hour >= 12) {
         result = "PM";
