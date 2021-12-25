@@ -133,8 +133,17 @@ export class FormService {
 
         if (resAuditRecord.success) {
           const userName = config.userName;
+          const addedRecord = {
+            updatedBy: config.userName,
+            updatedOn: new Date(),
+            createdBy: config.userName,
+            createdOn: new Date(),
+          };
 
           if (resAuditRecord.queryResponse) {
+            delete addedRecord.createdBy;
+            delete addedRecord.createdOn;
+
             const auditRecordId = resAuditRecord.queryResponse._id;
 
             const updateHistoryObject = {
@@ -182,9 +191,15 @@ export class FormService {
                 }
               }
             } else {
+              delete addedRecord.updatedBy;
+              delete addedRecord.updatedOn;
+
               resData.message.error = 'No changes were made';
             }
           } else {
+            delete addedRecord.updatedBy;
+            delete addedRecord.updatedOn;
+
             const resAuditRecordNew = await addNew({
               model: this.auditRecordModel,
               obj: {
@@ -203,6 +218,10 @@ export class FormService {
               resData.message.error = resAuditRecordNew.message;
             }
           }
+
+          resData.data = {
+            addedRecord: addedRecord,
+          };
         } else {
           resData.message.error = resAuditRecord.message;
         }
