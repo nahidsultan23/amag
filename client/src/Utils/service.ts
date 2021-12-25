@@ -22,13 +22,20 @@ const convertToTwoCharacterString = (string: string) => {
     return resultString;
 };
 
+const getAmPm = (hour: number) => {
+    let result = "AM";
+    if (hour >= 12) {
+        result = "PM";
+    }
+
+    return result;
+};
+
 export const timestampToString = (time: string) => {
     const utcTime = new Date(time);
     const utcTimestamp = utcTime.getTime();
     const bdTimestamp = utcTimestamp + constants.timezone * 3600 * 1000;
     const bdTime = new Date(bdTimestamp);
-
-    let amPm = "AM";
 
     const year = bdTime.getUTCFullYear().toString();
     const month = convertToTwoCharacterString((bdTime.getUTCMonth() + 1).toString());
@@ -37,9 +44,19 @@ export const timestampToString = (time: string) => {
     const minute = convertToTwoCharacterString(bdTime.getUTCMinutes().toString());
     const second = convertToTwoCharacterString(bdTime.getUTCSeconds().toString());
 
-    if (bdTime.getUTCHours() >= 12) {
-        amPm = "PM";
-    }
-
-    return date + "/" + month + "/" + year + ", " + hour + ":" + minute + ":" + second + " " + amPm;
+    return (
+        date +
+        "/" +
+        month +
+        "/" +
+        year +
+        ", " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second +
+        " " +
+        getAmPm(bdTime.getUTCHours())
+    );
 };
