@@ -1,11 +1,11 @@
-import { IUpdateFormData } from "../Interfaces/updateFormData.interface";
-import { constants } from "./constants";
+import { constants } from '../Constants/constants';
+import { IUpdateFormData } from '../Interfaces/updateFormData.interface';
 
 export const getData = async () => {
     const requestOptions = {
-        method: "GET",
+        method: 'GET',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
     };
 
@@ -23,9 +23,9 @@ export const getData = async () => {
 
 export const updateData = async (data: IUpdateFormData) => {
     const requestOptions = {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     };

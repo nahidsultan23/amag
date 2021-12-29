@@ -1,4 +1,4 @@
-import { constants } from "../Actions/constants";
+import { constants } from '../Constants/constants';
 
 export const convertToTwelveHoursFormat = (hour: number) => {
     let convertedHour = hour;
@@ -16,16 +16,16 @@ export const convertToTwoCharacterString = (string: string) => {
     let resultString = string;
 
     if (string.length < 2) {
-        resultString = "0" + string;
+        resultString = '0' + string;
     }
 
     return resultString;
 };
 
 export const getAmPm = (hour: number) => {
-    let result = "AM";
+    let result = 'AM';
     if (hour >= 12) {
-        result = "PM";
+        result = 'PM';
     }
 
     return result;
@@ -44,19 +44,5 @@ export const timestampToString = (time: string) => {
     const minute = convertToTwoCharacterString(bdTime.getUTCMinutes().toString());
     const second = convertToTwoCharacterString(bdTime.getUTCSeconds().toString());
 
-    return (
-        date +
-        "/" +
-        month +
-        "/" +
-        year +
-        ", " +
-        hour +
-        ":" +
-        minute +
-        ":" +
-        second +
-        " " +
-        getAmPm(bdTime.getUTCHours())
-    );
+    return date + '/' + month + '/' + year + ', ' + hour + ':' + minute + ':' + second + ' ' + getAmPm(bdTime.getUTCHours());
 };
