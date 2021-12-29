@@ -1,39 +1,27 @@
-import { convertToTwelveHoursFormat, convertToTwoCharacterString, getAmPm, timestampToString } from "./Utils/service";
+import { timestampToString } from './Utils/service';
 
-test("convertToTwelveHoursFormat() in service.ts", () => {
-    let result = convertToTwelveHoursFormat(0);
-    expect(result).toBe(12);
+test('timestampToString() in service.ts', () => {
+    let result = timestampToString('2021-12-25T09:43:35.393Z');
 
-    result = convertToTwelveHoursFormat(10);
-    expect(result).toBe(10);
+    const splittedResult = result.split(',');
+    expect(splittedResult.length).toBe(2);
 
-    result = convertToTwelveHoursFormat(13);
-    expect(result).toBe(1);
-});
+    const splittedFirstPortion = splittedResult[0].split('/');
+    expect(splittedFirstPortion.length).toBe(3);
+    expect(splittedFirstPortion[0].length).toBe(2);
+    expect(splittedFirstPortion[1].length).toBe(2);
+    expect(splittedFirstPortion[2].length).toBe(4);
+    expect(splittedFirstPortion[0].length).toBeLessThanOrEqual(31);
+    expect(splittedFirstPortion[1].length).toBeLessThanOrEqual(12);
+    expect(splittedFirstPortion[2].length).toBeLessThanOrEqual(1000);
 
-test("convertToTwoCharacterString() in service.ts", () => {
-    let result = convertToTwoCharacterString("1");
-    expect(result).toBe("01");
+    const trimmedSecondPortion = splittedResult[1].trim();
 
-    result = convertToTwoCharacterString("01");
-    expect(result).toBe("01");
-});
-
-test("getAmPm() in service.ts", () => {
-    let result = getAmPm(10);
-    expect(result).toBe("AM");
-
-    result = getAmPm(12);
-    expect(result).toBe("PM");
-
-    result = getAmPm(15);
-    expect(result).toBe("PM");
-
-    result = getAmPm(0);
-    expect(result).toBe("AM");
-});
-
-test("timestampToString() in service.ts", () => {
-    let result = timestampToString("2021-12-25T09:43:35.393Z");
-    expect(result).toBe("25/12/2021, 03:43:35 PM");
+    const splittedSecondPortion = trimmedSecondPortion.split(' ')[0].split(':');
+    expect(splittedSecondPortion[0].length).toBe(2);
+    expect(splittedSecondPortion[1].length).toBe(2);
+    expect(splittedSecondPortion[2].length).toBe(2);
+    expect(splittedSecondPortion[0].length).toBeLessThanOrEqual(12);
+    expect(splittedSecondPortion[1].length).toBeLessThanOrEqual(59);
+    expect(splittedSecondPortion[2].length).toBeLessThanOrEqual(59);
 });
